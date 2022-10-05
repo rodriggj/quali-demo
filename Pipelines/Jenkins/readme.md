@@ -148,6 +148,134 @@ There are times when the `stop` process will not work for various reasons. In th
 
 ## Integration to Quali
 
+Steps: 
+1. Navigate to your `Torque` account and sign in. 
+2. Along the left-nav pane, select `Integrations`. When the UI renders, you will see several tiles that indicate existing integrations. On the "Jenkins" tile select `Connect`. A right-tray will render with procedures to follow for the integration. 
+
+<p align="center">
+<img width="350" alt="image" src="https://user-images.githubusercontent.com/8760590/194123109-78b723fe-70c3-4765-929d-72cb4173d47e.png">
+</p>
+
+3. The first procedure drop-down is titled `General` and it provides a link to a github repository for a plugin download. This plugin will be required to configure with Jenkins Plugin Manager. Select the `Torque plugin` link and when redirected, download the the `jenkins-torque-plugin.hpi` file. 
+
+<p align="center">
+<img width="350" alt="image" src="https://user-images.githubusercontent.com/8760590/194127203-47496075-7fcb-4957-90ec-578e012e7f31.png">
+</p>
+
+4. Now that the file is downloaded, we can progress to the second drop-down which tells you to integrate the downloaded file with Jenkins Plugin Manager. 
+
+<p align="center">
+<img width="350" alt="image" src="https://user-images.githubusercontent.com/8760590/194124670-b2d9450c-1c89-4313-b4c6-95d71cadf3c9.png">
+</p>
+
+If you navigate over to the browser session to the Jenkins Dashboard you should see an option for `Manage Jenkins`. Select this option. 
+
+<p align="center">
+<img width="350" alt="image" src="https://user-images.githubusercontent.com/8760590/194125069-55b04d69-4029-4edd-b57a-bb8a8024b2b5.png">
+</p>
+
+When the UI redirects to the next page you will see an option to `Manage Plugins`
+
+<p align="center">
+<img width="350" alt="image" src="https://user-images.githubusercontent.com/8760590/194125354-87b93425-18ed-48f9-9fb4-3e98a1714f76.png">
+</p>
+
+When the UI redirects to the next page select the `Advanced Settings` option 
+
+<p align="center">
+<img width="350" alt="image" src="https://user-images.githubusercontent.com/8760590/194125817-03441678-e576-40fe-905c-7046fe947aba.png">
+</p>
+
+When the UI redirects scroll down to the lower section of the page to `Deploy Plugin`
+
+<p align="center">
+<img width="350" alt="image" src="https://user-images.githubusercontent.com/8760590/194126493-abd8fd6b-92ca-4a61-b983-049f9bf513db.png">
+</p>
+
+Select the `Choose File` button and select the `jenkins-torque-plugin.hpi` file you downloaded. Click `Deploy`.
+
+You should see `Success` on the `Download Progress`. 
+
+<p align="center">
+<img width="350" alt="image" src="https://user-images.githubusercontent.com/8760590/194128214-65b620ed-ae8e-4d4a-b99a-d7b035e7d2bd.png">
+</p>
+
+4. Now we can move on to `3. Configure` directions. Here they tell you to login as an `Administrator` if you haven't already. In my case I am the `Admin` so I can proceed to the additional configuration steps. 
+
+<p align="center">
+<img width="350" alt="image" src="https://user-images.githubusercontent.com/8760590/194128788-21b92791-7af9-4e65-a724-290b464f6579.png">
+</p>
+
+5. Navigate to the `Manage Jenkins` screen. You can use the breadcrumb if you are already logged in as an Admin. 
+
+<p align="center">
+<img width="350" alt="image" src="https://user-images.githubusercontent.com/8760590/194129245-55424b73-351d-4b9f-adf9-ecb8401bf164.png">
+</p>
+
+<p align="center">
+<img width="350" alt="image" src="https://user-images.githubusercontent.com/8760590/194129614-e7d6aa09-5943-4c4a-af5a-dbe6ed215ec7.png">
+</p>
+
+6. Scroll down to the `Torque Configure` section. Here we will have 2 steps involving `a`. Jenkins and `b`. Torque. 
+
+<img width="1285" alt="image" src="https://user-images.githubusercontent.com/8760590/194129929-73ab5421-1538-47b9-b92a-0c8cf389e844.png">
+
+6a. On the Jenkins screen, on the field labeled `Domain name or IP` replace the placeholder text with `https://portal.qtorque.io`.
+
+6b. On the same Jenkins screen, on the field labeled `Token` you need to input the token generated from Torque. Nav over to the Torque screen and click `Generate Token`
+
+<p align="center">
+<img width="350" alt="image" src="https://user-images.githubusercontent.com/8760590/194130701-303718d8-e452-41e6-ba48-a4f1c8bbca75.png">
+</p>
+
+<p align="center">
+<img width="350" alt="image" src="https://user-images.githubusercontent.com/8760590/194130953-ce82130d-b61c-4dfd-8eaa-5dfd95323005.png">
+</p>
+
+Click the `Copy Token to the Clipboard` link, and paste this token in the Jenkins field for `Token`. After doing this paste at the bottom of the UI will be a button for `Save`. Click `Save`. You will be redirected back to the Jenkins Dashboard. 
+
+<p align="center">
+<img width="350" alt="image" src="https://user-images.githubusercontent.com/8760590/194131300-8e4776e6-dba2-4d5f-94b6-fdc248020a12.png">
+</p>
+
+7. If no errors appeared on the screen your configuration should be complete. The last step of the process details that you are now ready to start utilizing your pipeline with Torque. Per the instructions you now need to go build a `Pipeline` in Jenkins. To do this start by navigating to the Jenkins Dashboard and clicking, `New Item`. 
+
+<p align="center">
+<img width="350" alt="image" src="https://user-images.githubusercontent.com/8760590/194134720-ceda526a-c97d-4e2e-9dc8-5ff019e92990.png">
+</p>
+
+8. From this screen you need to provide the pipeline a `Name` and select from one of the templated projects that are available to you. Select `Pipeline`. 
+
+<p align="center">
+<img width="350" alt="image" src="https://user-images.githubusercontent.com/8760590/194135606-aef28240-0a2c-4912-9892-522a7ad9e408.png">
+
+
+9. When the UI redirects, in the left nav-pane select `Advanced Project Options`.
+
+<p align="center">
+<img width="350" alt="image" src="https://user-images.githubusercontent.com/8760590/194135982-d832478a-28e9-4301-8e44-8f8af5dfbf57.png">
+</p>
+
+10. Here we can provide a `Display Name`. We can also use Community Documentation to implement a sample Sandbox deployment from a Quali Blue print. The documenation reference can be found [here](https://community.qtorque.io/jenkins-67/launching-a-sandbox-from-jenkins-pipeline-277). If you scroll down there is a sample script provided. 
+
+<p align="center">
+<img width="785" alt="image" src="https://user-images.githubusercontent.com/8760590/194139045-202b92de-c8e5-4633-907f-e57aade6191d.png">
+</p>
+
+This example specifies that a Torque `SpaceName` and `Blueprint` must be specified in this example configuration. If I return to the Torque web interface I can collect those peices of information here. 
+
+<p align="center">
+<img width="350" alt="image" src="https://user-images.githubusercontent.com/8760590/194139479-7ae0c318-897d-4ae6-b524-47f1f47a7d88.png">
+</p>
+
+I will then update my script with that information. 
+
+<p align="center">
+<img width="350" alt="image" src="https://user-images.githubusercontent.com/8760590/194140158-f1edd5a8-b8cc-490f-8ed3-9858a7fc8f93.png">
+</p>
+
+
+
 ## FAQ
 
 ## References
