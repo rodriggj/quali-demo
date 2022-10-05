@@ -131,7 +131,19 @@ You should be presented with the Jenkins Dashboard.
 <img width="350" alt="image" src="https://user-images.githubusercontent.com/8760590/194113804-cac6a010-2661-4f63-b77e-34488f8deb2f.png">
 </p>
 
-14. For any reason you need to stop or kill a process that may have bound to a port see reference instructions [here](https://damien.co/blog/2012-11-28-how-to-start-stop-restart-or-reload-jenkins-mac-osx/).
+14. Since this is a demo environment you may want to stop Jenkins from running. If so, open your terminal and execute the following command. 
+
+```s
+brew services stop jenkins
+```
+
+Which should result in a terminal screen that looks like this
+
+<p align="center">
+<img width="350" alt="image" src="https://user-images.githubusercontent.com/8760590/194116924-b1491edb-c1a6-4634-a7c3-e129b4e7e5be.png">
+</p>
+
+There are times when the `stop` process will not work for various reasons. In those instances you may need to attempt other `quit` or `kill` processes. For any reason you need to stop or kill a process that may have bound to a port see reference instructions [here](https://damien.co/blog/2012-11-28-how-to-start-stop-restart-or-reload-jenkins-mac-osx/).
 
 
 ## Integration to Quali
