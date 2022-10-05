@@ -131,6 +131,8 @@ You should be presented with the Jenkins Dashboard.
 <img width="350" alt="image" src="https://user-images.githubusercontent.com/8760590/194113804-cac6a010-2661-4f63-b77e-34488f8deb2f.png">
 </p>
 
+14. For any reason you need to stop or kill a process that may have bound to a port see reference instructions [here](https://damien.co/blog/2012-11-28-how-to-start-stop-restart-or-reload-jenkins-mac-osx/).
+
 
 ## Integration to Quali
 
