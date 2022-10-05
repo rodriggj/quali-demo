@@ -218,7 +218,7 @@ You should see `Success` on the `Download Progress`.
 
 6. Scroll down to the `Torque Configure` section. Here we will have 2 steps involving `a`. Jenkins and `b`. Torque. 
 
-<img width="1285" alt="image" src="https://user-images.githubusercontent.com/8760590/194129929-73ab5421-1538-47b9-b92a-0c8cf389e844.png">
+<img width="350" alt="image" src="https://user-images.githubusercontent.com/8760590/194129929-73ab5421-1538-47b9-b92a-0c8cf389e844.png">
 
 6a. On the Jenkins screen, on the field labeled `Domain name or IP` replace the placeholder text with `https://portal.qtorque.io`.
 
@@ -259,7 +259,7 @@ Click the `Copy Token to the Clipboard` link, and paste this token in the Jenkin
 10. Here we can provide a `Display Name`. We can also use Community Documentation to implement a sample Sandbox deployment from a Quali Blue print. The documenation reference can be found [here](https://community.qtorque.io/jenkins-67/launching-a-sandbox-from-jenkins-pipeline-277). If you scroll down there is a sample script provided. 
 
 <p align="center">
-<img width="785" alt="image" src="https://user-images.githubusercontent.com/8760590/194139045-202b92de-c8e5-4633-907f-e57aade6191d.png">
+<img width="350" alt="image" src="https://user-images.githubusercontent.com/8760590/194139045-202b92de-c8e5-4633-907f-e57aade6191d.png">
 </p>
 
 This example specifies that a Torque `SpaceName` and `Blueprint` must be specified in this example configuration. If I return to the Torque web interface I can collect those peices of information here. 
