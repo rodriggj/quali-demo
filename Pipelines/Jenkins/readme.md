@@ -8,8 +8,7 @@
 
 - [ ] Download and install `homebrew` on macOS. `homebrew` is a package manager used for macOS operating system.
 - [ ] Download and install `DockerDesktop` for macOS. `DockerDesktop` is a virtualization layer that will allow a Docker image to run locally. 
-- [ ] Download and Install Jenkins container image. 
-- [ ] 
+- [ ] Download and Install Jenkins container image.
 
 ### Jenkins Download
 
