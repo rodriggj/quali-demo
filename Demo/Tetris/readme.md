@@ -41,7 +41,7 @@ The SaaS application utilizes Role Based Access Control (RBAC) to determine the 
 1. Accounts. If a user is provisioned mulitple accounts, then this suite of account access is provided in a drop down view. 
 
 <p align="center">
-<img width="371" alt="image" src="https://user-images.githubusercontent.com/8760590/197873315-adc4ff04-813f-41fd-9ea7-5d29d9e52fb6.png">
+<img width="150" alt="image" src="https://user-images.githubusercontent.com/8760590/197873315-adc4ff04-813f-41fd-9ea7-5d29d9e52fb6.png">
 </p>
 
 > This feature ensures that in instances where there is structured hierarchy of access to possibly different clients or different accounts across multiple teams that access can be provisioned accordingly. 
@@ -49,13 +49,14 @@ The SaaS application utilizes Role Based Access Control (RBAC) to determine the 
 2. Spaces. If a user needs to be provisioned access to a particular environment where other environments need to be concealed this can also be enabled. 
 
 <p align="center">
-<img width="350" alt="image" src="https://user-images.githubusercontent.com/8760590/197873932-a0f015ae-4094-4aeb-8c36-fe57c0b3d8dd.png">
+<img width="150" alt="image" src="https://user-images.githubusercontent.com/8760590/197873932-a0f015ae-4094-4aeb-8c36-fe57c0b3d8dd.png">
 </p>
 
 3. Privledges. If a user is an Admin vs. a Member the view will be represented here. 
 
 <p align="center">
-<img width="260" alt="image" src="https://user-images.githubusercontent.com/8760590/197874628-b0a4c76f-920e-4799-a861-b07a9e92795b.png">
+<img width="150" alt="image" src="https://user-images.githubusercontent.com/8760590/197874628-b0a4c76f-920e-4799-a861-b07a9e92795b.png">
 </p>
+
 
 
