@@ -58,5 +58,13 @@ The SaaS application utilizes Role Based Access Control (RBAC) to determine the 
 <img width="150" alt="image" src="https://user-images.githubusercontent.com/8760590/197874628-b0a4c76f-920e-4799-a861-b07a9e92795b.png">
 </p>
 
+4. Environments. If you are a user with access to multiple envirionments, then you can utilize these buttons to view the appropriate list of environments. 
 
+<p align="center">
+<img width="150" alt="image" src="https://user-images.githubusercontent.com/8760590/197876486-957d69b2-0f9b-4976-a894-9be2b4a91de7.png">
+</p>
+
+---------
+
+### 3. Select a Blueprint
 
