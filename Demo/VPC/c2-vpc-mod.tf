@@ -34,39 +34,39 @@ variable "database_subnet_cidr" {
   default=["10.0.151.0/24", "10.0.152.0/24"]
 }
 
-variable "create_database_subnet_group" {
-  description = "A boolean value to indicate whether a DB Subnet group is required."
-  type = bool
-  default = true
-}
+# variable "create_database_subnet_group" {
+#   description = "A boolean value to indicate whether a DB Subnet group is required."
+#   type = bool
+#   default = true
+# }
 
-variable "create_database_subnet_route_table" {
-  description = "A boolean value to indicate whether a DB Subnet Route Table is required."
-  type = bool
-  default = true
-}
+# variable "create_database_subnet_route_table" {
+#   description = "A boolean value to indicate whether a DB Subnet Route Table is required."
+#   type = bool
+#   default = true
+# }
 
-variable "enable_nat_gateway" {
-  description = "A boolean value to indicate whether a NAT Gateway is required."
-  type = bool
-  default = true
-}
+# variable "enable_nat_gateway" {
+#   description = "A boolean value to indicate whether a NAT Gateway is required."
+#   type = bool
+#   default = true
+# }
 
-variable "single_nat_gateway" {
-  description = "A boolean value to indicate whether a single NAT Gateway vs. multiple is required."
-  type = bool
-  default = true
-}
+# variable "single_nat_gateway" {
+#   description = "A boolean value to indicate whether a single NAT Gateway vs. multiple is required."
+#   type = bool
+#   default = true
+# }
 
 
-variable "enable_dns_support" {
-  description = "A boolean value to indicate whether dns support is required."
-  type = bool
-  default = true
-}
+# variable "enable_dns_support" {
+#   description = "A boolean value to indicate whether dns support is required."
+#   type = bool
+#   default = true
+# }
 
-variable "enable_dns_hostnames" {
-  description = "A boolean value to indicate whether dns hostnames are required."
-  type = bool
-  default = true
-}
+# variable "enable_dns_hostnames" {
+#   description = "A boolean value to indicate whether dns hostnames are required."
+#   type = bool
+#   default = true
+# }
