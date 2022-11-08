@@ -1,6 +1,6 @@
 module "vpc" {
   source  = "terraform-aws-modules/vpc/aws"
-  version = "3.11.0"
+  version = "3.18.1"
 
   name = "demo-elk-stack"
   cidr = var.vpc_cidr_block
