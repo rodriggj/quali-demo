@@ -29,6 +29,7 @@ resource "aws_instance" "ec2_example" {
     tags = {
         terraform = true
         environment = "dev"
+        name = "torque-elk-stack"
     }
 
   provisioner "remote-exec" {
@@ -40,7 +41,7 @@ resource "aws_instance" "ec2_example" {
   connection {
       type        = "ssh"
       host        = self.public_ip
-      user        = "ubuntu"
+      user        = "ec2-user"
       private_key = file("${path.module}/elk-key")
       timeout     = "4m"
    }
@@ -96,6 +97,6 @@ resource "aws_security_group" "allow_elk" {
     }
 
     tags = {
-        Name = "allow_tls"
+        Name = "allow_elk"
     }
 }
