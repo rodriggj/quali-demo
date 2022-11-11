@@ -1,26 +1,8 @@
-# module "ec2_instance" {
-#     source = "terraform-aws-modules/ec2-instance/aws"
-#     version = "3.0"
-#     name = "elk-demo"
-#     ami = "ami-0d593311db5abb72b"
-#     key_name = aws_key_pair.elk-key.key_name
-#     instance_type = "m4.large"
-#     vpc_security_group_ids = [aws_security_group.allow_elk.id]
-#     depends_on = [
-#       aws_security_group.allow_elk
-#     ]
-
-#     tags = {
-#         terraform = true
-#         environment = "dev"
-#     }
-# }
-
 resource "aws_instance" "ec2_example" {
 
     ami = "ami-0d593311db5abb72b"  
     instance_type = "m4.large" 
-    key_name= "elk-key"
+    key_name= "elk-key-demo4"
     vpc_security_group_ids = [aws_security_group.allow_elk.id]
     depends_on = [
       aws_security_group.allow_elk
@@ -42,14 +24,14 @@ resource "aws_instance" "ec2_example" {
       type        = "ssh"
       host        = self.public_ip
       user        = "ec2-user"
-      private_key = file("${path.module}/elk-key")
+      private_key = file("${path.module}/elk-key-demo4")
       timeout     = "4m"
    }
 }
 
-resource "aws_key_pair" "elk-key"{
-    key_name = "elk-key"
-    public_key = file("${path.module}/elk-key.pub")
+resource "aws_key_pair" "elk-key-demo4"{
+    key_name = "elk-key-demo4"
+    public_key = file("${path.module}/elk-key-demo4.pub")
 }
 
 resource "aws_security_group" "allow_elk" {
