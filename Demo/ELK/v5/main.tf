@@ -1,41 +1,42 @@
-resource "aws_instance" "ec2_example" {
-
-    ami = "ami-0d593311db5abb72b"  
-    instance_type = "m4.large" 
-    key_name= "elk-key-demo4"
-    vpc_security_group_ids = [aws_security_group.allow_elk.id]
-    depends_on = [
-      aws_security_group.allow_elk
-    ]
-
-    tags = {
-        terraform = true
-        environment = "dev"
-        name = "torque-elk-stack"
+terraform {
+  required_providers {
+    aws = {
+      source = "hashicorp/aws"
+      version = "4.39.0"
     }
-
-  provisioner "remote-exec" {
-    inline = [
-      "touch hello.txt",
-      "echo helloworld remote provisioner >> hello.txt",
-    ]
   }
-  connection {
-      type        = "ssh"
-      host        = self.public_ip
-      user        = "ec2-user"
-      private_key = file("${path.module}/elk-key-demo4")
-      timeout     = "4m"
-   }
 }
 
-resource "aws_key_pair" "elk-key-demo4"{
-    key_name = "elk-key-demo4"
-    public_key = file("${path.module}/elk-key-demo4.pub")
+provider "aws" {
+  region = "us-west-2"
+}
+
+variable "prefix" {
+  description = "servername prefix"
+  default = "gjr"
+}
+
+resource "aws_instance" "web" {
+  ami           = "ami-0d593311db5abb72b"
+  instance_type = "m4.large"
+  key_name= "elk-key-pair"
+  count = 1
+  vpc_security_group_ids = [
+    aws_security_group.allow_elk.id
+  ]
+  user_data = "${file("elk_config.sh")}"
+  tags = {
+    Name = "${var.prefix}${count.index}"
+  }
+}
+
+resource "aws_key_pair" "elk-key-pair"{
+    key_name = "elk-key-pair"
+    public_key = file("elk-key-pair.pub")
 }
 
 resource "aws_security_group" "allow_elk" {
-    name        = "allow_elk"
+    name        = "elk-sg"
     description = "Allow all elasticsearch traffic"
 
     # elastisearch port
@@ -79,6 +80,11 @@ resource "aws_security_group" "allow_elk" {
     }
 
     tags = {
-        Name = "elk-sg"
+        Name = "allow_elk"
     }
+}
+
+output "instances" {
+  value       = "${aws_instance.web.*.private_ip}"
+  description = "PrivateIP address details"
 }
