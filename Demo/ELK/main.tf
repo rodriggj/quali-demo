@@ -17,7 +17,7 @@ variable "prefix" {
 }
 
 resource "aws_instance" "web" {
-  ami           = "ami-0d593311db5abb72b"
+  ami           = "ami-017fecd1353bcc96e"
   instance_type = "m4.large"
   key_name= "elk-key-pair"
   count = 1
@@ -32,7 +32,7 @@ resource "aws_instance" "web" {
 
 resource "aws_key_pair" "elk-key-pair"{
     key_name = "elk-key-pair"
-    public_key = file("elk-key-pair.pub")
+    public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDEXtSHNDteXEuZk3gmHGYkO1hUOliUhlZoKH7Q6RnVBbejOc7NUu/9Kr3MXlvlBANlAlsd/qHXepqMZXXQXksWi1JetvaOrTcivOzD+1g4Ep3mk7JHcFriMaAK63+6QNMCOjqCKuSRNc9EoF8KXd/JXHIDiJ4R0LGyOXC0vzPmbgX708HemcRwk3AlMsKjBkrh9MQWENDCH73PX1I5uU09TJL9pt8QAoSv6nhKhLd7xCeUFAQzkITyqyhpnCoKCJiBuPJ9a72+oZ0EwIoUHiJkY29IjGvvzUqCCCwY/0DZCFFj+hcV/L2inWS2nKuY5cUNNAcNX5igaZVh/k1T744F gabrielrodriguez@QS-US-MB-GABE.local"
 }
 
 resource "aws_security_group" "allow_elk" {
