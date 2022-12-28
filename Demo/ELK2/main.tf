@@ -2,15 +2,14 @@ terraform {
   required_providers {
     aws = {
       source = "hashicorp/aws"
-      version = "4.39.0"
+      version = "~>4.39.0"
     }
   }
 }
 
 provider "aws" {
-  region = "us-east-1"
+  region = "us-west-2"
 }
-
 
 #basic setup
 resource "aws_vpc" "elastic_vpc"{
@@ -39,22 +38,44 @@ resource "aws_main_route_table_association" "elastic_rt_main" {
   vpc_id         = aws_vpc.elastic_vpc.id
   route_table_id = aws_route_table.elastic_rt.id
 }
+
 resource "aws_subnet" "elastic_subnet"{
-  for_each = {us-east-1a=cidrsubnet("172.20.0.0/16",8,10),us-east-1b=cidrsubnet("172.20.0.0/16",8,20),us-east-1c=cidrsubnet("172.20.0.0/16",8,30)}
+  for_each = {
+    us-east-1a=cidrsubnet("172.20.0.0/16", 8, 10), 
+    us-east-1b=cidrsubnet("172.20.0.0/16", 8, 20), 
+    us-east-1c=cidrsubnet("172.20.0.0/16", 8, 30)
+  }
+
   vpc_id = aws_vpc.elastic_vpc.id
   availability_zone = each.key
   cidr_block = each.value
+  map_public_ip_on_launch = true
   tags={
     Name="elastic_subnet_${each.key}"
   }
 }
+
+# Use datasource for this 
 variable "az_name" {
   type    = list(string)
   default = ["us-east-1a","us-east-1b","us-east-1c"]
 }
+
+variable "region" {
+  type = string
+  default = "us-east-1"
+}
+
+variable "key_name" {
+  type = string
+  default = "elk-stack-key"
+}
+
 #elasticsearch
 resource "aws_security_group" "elasticsearch_sg" {
   vpc_id = aws_vpc.elastic_vpc.id
+
+  # Harden security inbound rules
   ingress {
     description = "ingress rules"
     cidr_blocks = [ "0.0.0.0/0" ]
@@ -62,6 +83,8 @@ resource "aws_security_group" "elasticsearch_sg" {
     protocol = "tcp"
     to_port = 22
   }
+
+  # Harden security inbound rules
   ingress {
     description = "ingress rules"
     cidr_blocks = [ "0.0.0.0/0" ]
@@ -69,6 +92,7 @@ resource "aws_security_group" "elasticsearch_sg" {
     protocol = "tcp"
     to_port = 9300
   }
+
   egress {
     description = "egress rules"
     cidr_blocks = [ "0.0.0.0/0" ]
@@ -80,22 +104,21 @@ resource "aws_security_group" "elasticsearch_sg" {
     Name="elasticsearch_sg"
   }
 }
-resource "aws_key_pair" "elastic_ssh_key" {
-  key_name="tf-kp"
-  public_key= file("tf-kp.pub")
-}
+
+
 resource "aws_instance" "elastic_nodes" {
   count = 3
+  # find relevant latest AMI and change instance type to t3a - minimum viable (small? medium?)
   ami                    = "ami-04d29b6f966df1537"
   instance_type          = "t2.large"
   subnet_id = aws_subnet.elastic_subnet[var.az_name[count.index]].id
   vpc_security_group_ids = [aws_security_group.elasticsearch_sg.id]
-  key_name               = aws_key_pair.elastic_ssh_key.key_name
-  associate_public_ip_address = true
+  key_name               = var.key_name
   tags = {
     Name = "elasticsearch_${count.index}"
   }
 }
+
 data "template_file" "init_elasticsearch" {
   depends_on = [ 
     aws_instance.elastic_nodes
@@ -111,6 +134,7 @@ data "template_file" "init_elasticsearch" {
     node3 = aws_instance.elastic_nodes[2].private_ip
   }
 }
+
 resource "null_resource" "move_elasticsearch_file" {
   count = 3
   connection {
@@ -187,7 +211,7 @@ resource "aws_instance" "kibana" {
   instance_type          = "t2.large"
   subnet_id = aws_subnet.elastic_subnet[var.az_name[0]].id
   vpc_security_group_ids = [aws_security_group.kibana_sg.id]
-  key_name               = aws_key_pair.elastic_ssh_key.key_name
+  key_name               = var.key_name
   associate_public_ip_address = true
   tags = {
     Name = "kibana"
@@ -239,7 +263,6 @@ resource "null_resource" "install_kibana" {
   }
 }
 
-
 #logstash
 resource "aws_security_group" "logstash_sg" {
   vpc_id = aws_vpc.elastic_vpc.id
@@ -277,7 +300,7 @@ resource "aws_instance" "logstash" {
   instance_type          = "t2.large"
   subnet_id = aws_subnet.elastic_subnet[var.az_name[0]].id
   vpc_security_group_ids = [aws_security_group.logstash_sg.id]
-  key_name               = aws_key_pair.elastic_ssh_key.key_name
+  key_name               = var.key_name
   associate_public_ip_address = true
   tags = {
     Name = "logstash"
@@ -359,7 +382,7 @@ resource "aws_instance" "filebeat" {
   instance_type          = "t2.large"
   subnet_id = aws_subnet.elastic_subnet[var.az_name[0]].id
   vpc_security_group_ids = [aws_security_group.filebeat_sg.id]
-  key_name               = aws_key_pair.elastic_ssh_key.key_name
+  key_name               = var.key_name
   associate_public_ip_address = true
   tags = {
     Name = "filebeat"
